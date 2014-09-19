@@ -27,9 +27,7 @@ public class TxtxUserGroupProvider implements UserGroupProvider {
     @Override
     public JahiaUser getUser(String name) throws UserNotFoundException {
         if (users.contains(name)) {
-            Properties properties = new Properties();
-            properties.put("j:password", JahiaUserManagerService.encryptPassword("password"));
-            return new JahiaUserImpl(name, name, properties, false, TXTX_PROVIDER_KEY);
+            return new JahiaUserImpl(name, name, new Properties(), false, TXTX_PROVIDER_KEY);
         }
         throw new UserNotFoundException("Cannot find user " + name);
     }
@@ -82,6 +80,11 @@ public class TxtxUserGroupProvider implements UserGroupProvider {
             return new ArrayList<String>(Collections2.filter(groups, Predicates.contains(Pattern.compile("^" + StringUtils.replace(filter, "*", ".*") + "$"))));
         }
         return new ArrayList<String>();
+    }
+
+    @Override
+    public boolean verifyPassword(String userPassword) {
+        return "password".equals(userPassword);
     }
 
     public void init() {

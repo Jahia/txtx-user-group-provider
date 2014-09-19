@@ -1,14 +1,14 @@
 txtx-user-group-provider
 ========================
 
-UserGroupProvider for testing purpose.
+UserGroupProvider for testing purposes.
 
-Users :
-* tata/password
-* tete/password
-* titi/password
+Users (all with password "password"):
+* tata
+* tete
+* titi
 
-Groups :
+Groups:
 * toto
  - tata
  - tete

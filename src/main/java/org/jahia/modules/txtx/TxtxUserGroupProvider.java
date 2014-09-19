@@ -9,6 +9,7 @@ import org.jahia.modules.external.users.UserGroupProvider;
 import org.jahia.modules.external.users.UserNotFoundException;
 import org.jahia.services.usermanager.JahiaUser;
 import org.jahia.services.usermanager.JahiaUserImpl;
+import org.jahia.services.usermanager.JahiaUserManagerService;
 
 import java.util.*;
 import java.util.regex.Pattern;
@@ -26,7 +27,9 @@ public class TxtxUserGroupProvider implements UserGroupProvider {
     @Override
     public JahiaUser getUser(String name) throws UserNotFoundException {
         if (users.contains(name)) {
-            return new JahiaUserImpl(name, name, new Properties(), false, TXTX_PROVIDER_KEY);
+            Properties properties = new Properties();
+            properties.put("j:password", JahiaUserManagerService.encryptPassword("password"));
+            return new JahiaUserImpl(name, name, properties, false, TXTX_PROVIDER_KEY);
         }
         throw new UserNotFoundException("Cannot find user " + name);
     }

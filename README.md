@@ -1,4 +1,4 @@
-txtx-user-group-provider
+T\*t\* User Group Provider
 ========================
 
 UserGroupProvider for testing purposes.

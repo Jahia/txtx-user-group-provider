@@ -83,7 +83,7 @@ public class TxtxUserGroupProvider implements UserGroupProvider {
     }
 
     @Override
-    public boolean verifyPassword(String userPassword) {
+    public boolean verifyPassword(String userName, String userPassword) {
         return "password".equals(userPassword);
     }
 

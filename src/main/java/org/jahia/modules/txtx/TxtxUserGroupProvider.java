@@ -9,9 +9,11 @@ import org.jahia.modules.external.users.UserGroupProvider;
 import org.jahia.modules.external.users.UserNotFoundException;
 import org.jahia.services.usermanager.JahiaUser;
 import org.jahia.services.usermanager.JahiaUserImpl;
-import org.jahia.services.usermanager.JahiaUserManagerService;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Properties;
 import java.util.regex.Pattern;
 
 public class TxtxUserGroupProvider implements UserGroupProvider {

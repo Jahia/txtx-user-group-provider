@@ -29,7 +29,9 @@ public class TxtxUserGroupProvider implements UserGroupProvider {
     @Override
     public JahiaUser getUser(String name) throws UserNotFoundException {
         if (users.contains(name)) {
-            return new JahiaUserImpl(name, name, new Properties(), false, TXTX_PROVIDER_KEY);
+            Properties properties = new Properties();
+            properties.put("j:email", "mail@tx.tx");
+            return new JahiaUserImpl(name, name, properties, false, TXTX_PROVIDER_KEY);
         }
         throw new UserNotFoundException("Cannot find user " + name);
     }

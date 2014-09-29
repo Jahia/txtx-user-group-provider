@@ -10,10 +10,7 @@ import org.jahia.modules.external.users.UserNotFoundException;
 import org.jahia.services.usermanager.JahiaUser;
 import org.jahia.services.usermanager.JahiaUserImpl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class TxtxUserGroupProvider implements UserGroupProvider {
@@ -22,7 +19,7 @@ public class TxtxUserGroupProvider implements UserGroupProvider {
 
     private List<String> users = Arrays.asList("tata", "tete", "titi");
 
-    private List<String> groups = Arrays.asList("toto", "tutu");
+    private List<String> groups = Arrays.asList("toto", "tutu", "tyty");
 
     private ExternalUserGroupService externalUserGroupService;
 
@@ -52,11 +49,28 @@ public class TxtxUserGroupProvider implements UserGroupProvider {
         if ("tutu".equals(groupName)) {
             members.add(new Member("titi", Member.MemberType.USER));
         }
+        if ("tyty".equals(groupName)) {
+            members.add(new Member("tete", Member.MemberType.USER));
+            members.add(new Member("titi", Member.MemberType.USER));
+        }
         return members;
     }
 
     @Override
-    public List<String> getMembership(String principalName) {
+    public List<String> getMembership(Member member) {
+        if ("tata".equals(member.getName())) {
+            return Arrays.asList("toto");
+        } else if ("tete".equals(member.getName())) {
+            return Arrays.asList("toto", "tyty");
+        } else if ("titi".equals(member.getName())) {
+            return Arrays.asList("tutu", "tyty");
+        } else if ("toto".equals(member.getName())) {
+            return Collections.emptyList();
+        } else if ("tutu".equals(member.getName())) {
+            return Arrays.asList("toto");
+        } else if ("tyty".equals(member.getName())) {
+            return Collections.emptyList();
+        }
         return null;
     }
 

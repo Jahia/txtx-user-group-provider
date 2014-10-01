@@ -3,10 +3,9 @@ package org.jahia.modules.txtx;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Collections2;
 import org.apache.commons.lang.StringUtils;
-import org.jahia.modules.external.users.ExternalUserGroupService;
-import org.jahia.modules.external.users.Member;
-import org.jahia.modules.external.users.UserGroupProvider;
-import org.jahia.modules.external.users.UserNotFoundException;
+import org.jahia.modules.external.users.*;
+import org.jahia.services.usermanager.JahiaGroup;
+import org.jahia.services.usermanager.JahiaGroupImpl;
 import org.jahia.services.usermanager.JahiaUser;
 import org.jahia.services.usermanager.JahiaUserImpl;
 
@@ -34,8 +33,12 @@ public class TxtxUserGroupProvider implements UserGroupProvider {
     }
 
     @Override
-    public boolean groupExists(String name) {
-        return groups.contains(name);
+    public JahiaGroup getGroup(String name) throws GroupNotFoundException {
+        if (groups.contains(name)) {
+            Properties properties = new Properties();
+            return new JahiaGroupImpl(name, name, null, properties);
+        }
+        throw new GroupNotFoundException("Cannot find group " + name);
     }
 
     @Override

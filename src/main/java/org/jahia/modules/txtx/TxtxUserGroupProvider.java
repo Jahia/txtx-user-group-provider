@@ -16,7 +16,7 @@ public class TxtxUserGroupProvider implements UserGroupProvider {
 
     public static final String TXTX_PROVIDER_KEY = "txtx";
 
-    private List<String> users = Arrays.asList("tata", "tete", "titi");
+    private List users = Arrays.asList("tata", "tete", "titi");
 
     private List<String> groups = Arrays.asList("toto", "tutu", "tyty");
 
@@ -80,27 +80,31 @@ public class TxtxUserGroupProvider implements UserGroupProvider {
     @Override
     public List<String> searchUsers(Properties searchCriterias, long offset, long limit) {
         String filter = (String) searchCriterias.get("username");
-        if (filter != null) {
-            return new ArrayList<String>(Collections2.filter(users, Predicates.contains(Pattern.compile("^" + StringUtils.replace(filter, "*", ".*") + "$"))));
+        if (filter == null) {
+            filter = (String) searchCriterias.get("*");
         }
-        filter = (String) searchCriterias.get("*");
+        ArrayList<String> l;
         if (filter != null) {
-            return new ArrayList<String>(Collections2.filter(users, Predicates.contains(Pattern.compile("^" + StringUtils.replace(filter, "*", ".*") + "$"))));
+            l = new ArrayList<String>(Collections2.filter(users, Predicates.contains(Pattern.compile("^" + StringUtils.replace(filter, "*", ".*") + "$"))));
+        } else {
+            l = new ArrayList<String>(users);
         }
-        return users;
+        return l.subList(Math.min((int) offset, l.size()), limit < 0 ? l.size() : Math.min((int) (offset + limit), l.size()));
     }
 
     @Override
     public List<String> searchGroups(Properties searchCriterias, long offset, long limit) {
         String filter = (String) searchCriterias.get("groupname");
-        if (filter != null) {
-            return new ArrayList<String>(Collections2.filter(groups, Predicates.contains(Pattern.compile("^" + StringUtils.replace(filter, "*", ".*") + "$"))));
+        if (filter == null) {
+            filter = (String) searchCriterias.get("*");
         }
-        filter = (String) searchCriterias.get("*");
+        ArrayList<String> l;
         if (filter != null) {
-            return new ArrayList<String>(Collections2.filter(groups, Predicates.contains(Pattern.compile("^" + StringUtils.replace(filter, "*", ".*") + "$"))));
+            l = new ArrayList<String>(Collections2.filter(groups, Predicates.contains(Pattern.compile("^" + StringUtils.replace(filter, "*", ".*") + "$"))));
+        } else {
+            l = new ArrayList<String>(groups);
         }
-        return groups;
+        return l.subList(Math.min((int) offset, l.size()), limit < 0 ? l.size() : Math.min((int) (offset + limit), l.size()));
     }
 
     @Override

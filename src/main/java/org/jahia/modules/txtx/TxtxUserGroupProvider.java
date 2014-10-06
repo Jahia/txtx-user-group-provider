@@ -78,7 +78,7 @@ public class TxtxUserGroupProvider implements UserGroupProvider {
     }
 
     @Override
-    public List<String> searchUsers(Properties searchCriterias) {
+    public List<String> searchUsers(Properties searchCriterias, long offset, long limit) {
         String filter = (String) searchCriterias.get("username");
         if (filter != null) {
             return new ArrayList<String>(Collections2.filter(users, Predicates.contains(Pattern.compile("^" + StringUtils.replace(filter, "*", ".*") + "$"))));
@@ -91,7 +91,7 @@ public class TxtxUserGroupProvider implements UserGroupProvider {
     }
 
     @Override
-    public List<String> searchGroups(Properties searchCriterias) {
+    public List<String> searchGroups(Properties searchCriterias, long offset, long limit) {
         String filter = (String) searchCriterias.get("groupname");
         if (filter != null) {
             return new ArrayList<String>(Collections2.filter(groups, Predicates.contains(Pattern.compile("^" + StringUtils.replace(filter, "*", ".*") + "$"))));
@@ -106,6 +106,11 @@ public class TxtxUserGroupProvider implements UserGroupProvider {
     @Override
     public boolean verifyPassword(String userName, String userPassword) {
         return "password".equals(userPassword);
+    }
+
+    @Override
+    public boolean supportsGroups() {
+        return true;
     }
 
     public void init() {

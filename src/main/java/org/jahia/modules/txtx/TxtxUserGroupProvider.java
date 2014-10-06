@@ -87,7 +87,7 @@ public class TxtxUserGroupProvider implements UserGroupProvider {
         if (filter != null) {
             return new ArrayList<String>(Collections2.filter(users, Predicates.contains(Pattern.compile("^" + StringUtils.replace(filter, "*", ".*") + "$"))));
         }
-        return new ArrayList<String>();
+        return users;
     }
 
     @Override
@@ -100,7 +100,7 @@ public class TxtxUserGroupProvider implements UserGroupProvider {
         if (filter != null) {
             return new ArrayList<String>(Collections2.filter(groups, Predicates.contains(Pattern.compile("^" + StringUtils.replace(filter, "*", ".*") + "$"))));
         }
-        return new ArrayList<String>();
+        return groups;
     }
 
     @Override

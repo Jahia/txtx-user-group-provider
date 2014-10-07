@@ -7,7 +7,7 @@
 
   <osgi:reference id="ExternalUserGroupService" interface="org.jahia.modules.external.users.ExternalUserGroupService"/>
 
-  <bean class="org.jahia.modules.txtx.TxtxUserGroupProvider" init-method="init">
+  <bean class="org.jahia.modules.txtx.TxtxUserGroupProvider" init-method="init" destroy-method="destroy">
     <property name="externalUserGroupService" ref="ExternalUserGroupService" />
   </bean>
 

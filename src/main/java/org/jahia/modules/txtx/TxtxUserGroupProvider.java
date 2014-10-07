@@ -121,6 +121,10 @@ public class TxtxUserGroupProvider implements UserGroupProvider {
         externalUserGroupService.register("txtx", this);
     }
 
+    public void destroy() {
+        externalUserGroupService.unregister("txtx");
+    }
+
     public void setExternalUserGroupService(ExternalUserGroupService externalUserGroupService) {
         this.externalUserGroupService = externalUserGroupService;
     }

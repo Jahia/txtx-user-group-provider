@@ -9,6 +9,7 @@ import org.jahia.services.usermanager.JahiaGroupImpl;
 import org.jahia.services.usermanager.JahiaUser;
 import org.jahia.services.usermanager.JahiaUserImpl;
 
+import javax.jcr.RepositoryException;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -16,7 +17,7 @@ public class TxtxUserGroupProvider implements UserGroupProvider {
 
     public static final String TXTX_PROVIDER_KEY = "txtx";
 
-    private List users = Arrays.asList("tata", "tete", "titi");
+    private List<String> users = Arrays.asList("tata", "tete", "titi");
 
     private List<String> groups = Arrays.asList("toto", "tutu", "tyty");
 
@@ -114,6 +115,11 @@ public class TxtxUserGroupProvider implements UserGroupProvider {
 
     @Override
     public boolean supportsGroups() {
+        return true;
+    }
+
+    @Override
+    public boolean isAvailable() throws RepositoryException {
         return true;
     }
 

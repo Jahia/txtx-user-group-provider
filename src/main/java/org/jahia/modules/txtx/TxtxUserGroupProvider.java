@@ -80,32 +80,36 @@ public class TxtxUserGroupProvider implements UserGroupProvider {
 
     @Override
     public List<String> searchUsers(Properties searchCriterias, long offset, long limit) {
-        String filter = (String) searchCriterias.get("username");
-        if (filter == null) {
-            filter = (String) searchCriterias.get("*");
-        }
-        ArrayList<String> l;
-        if (filter != null) {
-            l = new ArrayList<String>(Collections2.filter(users, Predicates.contains(Pattern.compile("^" + StringUtils.replace(filter, "*", ".*") + "$"))));
-        } else {
-            l = new ArrayList<String>(users);
-        }
-        return l.subList(Math.min((int) offset, l.size()), limit < 0 ? l.size() : Math.min((int) (offset + limit), l.size()));
+        return search(users, searchCriterias, "username", offset, limit);
     }
 
     @Override
     public List<String> searchGroups(Properties searchCriterias, long offset, long limit) {
-        String filter = (String) searchCriterias.get("groupname");
+        return search(groups, searchCriterias, "groupname", offset, limit);
+    }
+
+    private static List<String> search(List<String> allRows, Properties searchCriterias, String nameColumn, long offset, long limit) {
+
+        // Return empty result in case there is an unknown search criteria.
+        for (Map.Entry<?, ?> entry : searchCriterias.entrySet()) {
+            Object name = entry.getKey();
+            Object value = entry.getKey();
+            if (!(name.equals(nameColumn) || name.equals("*") || value.equals("") || value.equals("*"))) {
+                return Collections.emptyList();
+            }
+        }
+
+        String filter = (String) searchCriterias.get(nameColumn);
         if (filter == null) {
             filter = (String) searchCriterias.get("*");
         }
-        ArrayList<String> l;
+        ArrayList<String> found;
         if (filter != null) {
-            l = new ArrayList<String>(Collections2.filter(groups, Predicates.contains(Pattern.compile("^" + StringUtils.replace(filter, "*", ".*") + "$"))));
+            found = new ArrayList<String>(Collections2.filter(allRows, Predicates.contains(Pattern.compile("^" + StringUtils.replace(filter, "*", ".*") + "$"))));
         } else {
-            l = new ArrayList<String>(groups);
+            found = new ArrayList<String>(allRows);
         }
-        return l.subList(Math.min((int) offset, l.size()), limit < 0 ? l.size() : Math.min((int) (offset + limit), l.size()));
+        return found.subList(Math.min((int) offset, found.size()), limit < 0 ? found.size() : Math.min((int) (offset + limit), found.size()));
     }
 
     @Override

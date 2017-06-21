@@ -93,7 +93,7 @@ public class TxtxUserGroupProvider implements UserGroupProvider {
         // Return empty result in case there is an unknown search criteria.
         for (Map.Entry<?, ?> entry : searchCriterias.entrySet()) {
             Object name = entry.getKey();
-            Object value = entry.getKey();
+            Object value = entry.getValue();
             if (!(name.equals(nameColumn) || name.equals("*") || value.equals("") || value.equals("*"))) {
                 return Collections.emptyList();
             }

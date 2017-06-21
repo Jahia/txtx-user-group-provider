@@ -78,9 +78,8 @@
     <parent>
         <artifactId>jahia-modules</artifactId>
         <groupId>org.jahia.modules</groupId>
-        <version>7.1.0.0-SNAPSHOT</version>
+        <version>7.1.0.0</version>
     </parent>
-    <groupId>org.jahia.modules</groupId>
     <artifactId>txtx-user-group-provider</artifactId>
     <name>T*t* User Group Provider</name>
     <version>1.0.0-SNAPSHOT</version>
@@ -88,15 +87,15 @@
     <description>This is the custom module (T*t* User Group Provider) for running on a Digital Factory server.</description>
 
     <scm>
-        <connection>scm:git:git@github.com:qlamerand/txtx-user-group-provider.git</connection>
-        <developerConnection>scm:git:git@github.com:qlamerand/txtx-user-group-provider.git</developerConnection>
+        <connection>scm:git:git@github.com:Jahia/txtx-user-group-provider.git</connection>
+        <developerConnection>scm:git:git@github.com:Jahia/txtx-user-group-provider.git</developerConnection>
     </scm>
 
   <dependencies>
     <dependency>
       <groupId>org.jahia.modules</groupId>
       <artifactId>external-provider-users-groups</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
+      <version>1.0.0</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
